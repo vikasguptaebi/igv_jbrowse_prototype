@@ -1,0 +1,20 @@
+{
+  "dateCreated": "2024-07-14T15:30:53.009Z",
+  "tracks": [
+    {
+      "trackId": "structural_annotation",
+      "attributesIndexed": [
+        "Name",
+        "ID"
+      ],
+      "adapterConf": {
+        "type": "Gff3TabixAdapter",
+        "gffGzLocation": {
+          "uri": "http://localhost:3000/BU_ATCC8492_annotations_sorted.gff.gz",
+          "locationType": "UriLocation"
+        }
+      }
+    }
+  ],
+  "assemblyNames": ["b_uniformis"]
+}
