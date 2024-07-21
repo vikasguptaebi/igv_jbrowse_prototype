@@ -9,7 +9,7 @@ interface GenomeViewProps {
 }
 
 const GenomeView: React.FC<GenomeViewProps> = observer(({ store }) => {
-    const tracks = store.tracks;
+    const tracks = store.tracks.filter(track => track.platform === 'jbrowse');
 
     return (
         <div>

@@ -5,12 +5,16 @@ import GeneSelector from './components/GeneSelector';
 import fetchIndexData from './services/fetchIndexData';
 import navigateToLocation from './services/navigateToLocation';
 import { ViewModel } from '@jbrowse/react-linear-genome-view';
+import IGVBrowser from './components/IGVBrowser'; // Import the IGV component
+import tracks from './tracks'; // Import tracks from tracks.ts
 
 function App() {
     const [viewState, setViewState] = useState<ViewModel | null>(null);
     const [stateSnapshot, setStateSnapshot] = useState('');
     const [indexData, setIndexData] = useState<{ name: string; loc: string }[]>([]);
     const [selectedGene, setSelectedGene] = useState<string>('');
+
+    const [genome] = useState('hg19'); // or other genome versions
 
     useEffect(() => {
         fetchIndexData().then(data => setIndexData(data));
@@ -22,18 +26,25 @@ function App() {
         }
     };
 
+    // Filter tracks specific to IGV
+    const igvTracks = tracks.filter(track => track.platform === 'igv');
+
     return (
         <>
-            <h1>
-                JBrowse2 React Genome Search
-            </h1>
-            <JBrowseView setViewState={setViewState} />
+            <h1>JBrowse2 React Genome Search</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ width: '48%' }}>
+                    <JBrowseView setViewState={setViewState} />
+                </div>
+                <div style={{ width: '48%' }}>
+                    <IGVBrowser tracks={igvTracks} genome={genome} />
+                </div>
+            </div>
             <h3>Control the view</h3>
             <div>
                 <p>
-                    This is an example of controlling the view from other elements on the
-                    page. Selecting a gene from the dropdown will navigate the view to the location of
-                    that gene.
+                    This is an example of controlling the view from other elements on the page. Selecting a
+                    gene from the dropdown will navigate the view to the location of that gene.
                 </p>
                 <GeneSelector
                     indexData={indexData}
@@ -61,9 +72,8 @@ function App() {
             <textarea value={stateSnapshot} readOnly rows={20} cols={80} />
             <h3>React to the view</h3>
             <p>
-                Using <code>onChange</code> in <code>createViewState</code>, you can
-                observe what is happening in the view and react to it. The changes in
-                the state of the view are emitted as{' '}
+                Using <code>onChange</code> in <code>createViewState</code>, you can observe what is
+                happening in the view and react to it. The changes in the state of the view are emitted as{' '}
                 <a href="http://jsonpatch.com/" target="_blank" rel="noreferrer">
                     JSON patches
                 </a>

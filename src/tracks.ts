@@ -1,10 +1,19 @@
 const tracks = [
     {
+        name: "IGV Structural annotation",
+        trackId: 'igv_structural_annotation',
+        type: "annotation",
+        url: "http://localhost:3000/BU_ATCC8492_annotations.gff",
+        format: "gff3",
+        platform: 'igv',
+    },
+    {
         type: 'FeatureTrack',
         trackId: 'structural_annotation',
         name: 'Structural Annotation',
         assemblyNames: ['b_uniformis'],
         category: ['Annotations'],
+        platform: 'jbrowse',
         adapter: {
             type: 'Gff3TabixAdapter',
             gffGzLocation: {

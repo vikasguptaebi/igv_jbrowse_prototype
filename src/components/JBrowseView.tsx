@@ -16,7 +16,7 @@ const JBrowseView: React.FC<JBrowseViewProps> = ({ setViewState }) => {
             try {
                 const state = createViewState({
                     assembly,
-                    tracks,
+                    tracks: tracks.filter(track => track.platform === 'jbrowse'),
                     onChange: (patch: any) => {
                         console.log(JSON.stringify(patch));
                     },
