@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import igv from 'igv/dist/igv.esm';
 
+let igvInstance: any = null; // Singleton IGV instance
+
 interface IGVBrowserProps {
     tracks: any[];
     genome: string;
@@ -8,19 +10,21 @@ interface IGVBrowserProps {
 
 const IGVBrowser: React.FC<IGVBrowserProps> = ({ tracks, genome }) => {
     const igvContainer = useRef<HTMLDivElement>(null);
-    const browserInstance = useRef<any>(null);
     const [searchTerm, setSearchTerm] = useState<string>('');
 
     useEffect(() => {
-        if (!browserInstance.current && igvContainer.current) {
+        if (igvContainer.current && !igvInstance) {
             const options = {
                 genome,
                 tracks,
             };
 
+            console.log('Creating IGV browser with options:', options); // Debug log
+
             igv.createBrowser(igvContainer.current, options)
                 .then(browser => {
-                    browserInstance.current = browser;
+                    igvInstance = browser;
+                    console.log('IGV browser created:', browser); // Debug log
                 })
                 .catch(error => {
                     console.error('Error creating IGV browser:', error);
@@ -28,15 +32,15 @@ const IGVBrowser: React.FC<IGVBrowserProps> = ({ tracks, genome }) => {
         }
 
         return () => {
-            if (browserInstance.current) {
+            if (igvInstance) {
                 try {
-                    if (browserInstance.current.removeAllTracks) {
-                        browserInstance.current.removeAllTracks();
+                    if (igvInstance.removeAllTracks) {
+                        igvInstance.removeAllTracks();
                     }
-                    if (browserInstance.current.dispose) {
-                        browserInstance.current.dispose();
+                    if (igvInstance.dispose) {
+                        igvInstance.dispose();
                     }
-                    browserInstance.current = null;
+                    igvInstance = null;
                 } catch (error) {
                     console.error('Error cleaning up IGV browser:', error);
                 }
@@ -45,8 +49,8 @@ const IGVBrowser: React.FC<IGVBrowserProps> = ({ tracks, genome }) => {
     }, [genome, tracks]);
 
     const handleSearch = () => {
-        if (browserInstance.current && searchTerm) {
-            browserInstance.current.search(searchTerm);
+        if (igvInstance && searchTerm) {
+            igvInstance.search(searchTerm);
         }
     };
 

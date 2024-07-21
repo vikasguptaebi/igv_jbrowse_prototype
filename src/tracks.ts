@@ -3,7 +3,7 @@ const tracks = [
         name: "IGV Structural annotation",
         trackId: 'igv_structural_annotation',
         type: "annotation",
-        url: "http://localhost:3000/BU_ATCC8492_annotations.gff",
+        url: "http://localhost:3000/BU_ATCC8492_annotations_cleaned.gff",
         format: "gff3",
         platform: 'igv',
     },
