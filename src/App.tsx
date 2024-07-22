@@ -14,7 +14,7 @@ function App() {
     const [indexData, setIndexData] = useState<{ name: string; loc: string }[]>([]);
     const [selectedGene, setSelectedGene] = useState<string>('');
 
-    const [genome] = useState('hg19'); // or other genome versions
+    const [genome] = useState('customGenome'); // Use a custom genome ID
 
     useEffect(() => {
         fetchIndexData().then(data => setIndexData(data));

@@ -15,7 +15,11 @@ const IGVBrowser: React.FC<IGVBrowserProps> = ({ tracks, genome }) => {
     useEffect(() => {
         if (igvContainer.current && !igvInstance) {
             const options = {
-                genome,
+                genome: {
+                    id: genome, // Custom genome ID
+                    fastaURL: 'http://localhost:3000/BU_ATCC8492VPI0062_NT5002.1.fa',
+                    indexURL: 'http://localhost:3000/BU_ATCC8492VPI0062_NT5002.1.fa.fai',
+                },
                 tracks,
             };
 
