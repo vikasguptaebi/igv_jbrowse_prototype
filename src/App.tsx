@@ -57,29 +57,6 @@ function App() {
             <div>
                 <SearchBar viewState={viewState} navigateToLocation={handleNavigateToLocation} />
             </div>
-            <h3>See the state</h3>
-            <div>
-                <button
-                    onClick={() => {
-                        if (viewState) {
-                            setStateSnapshot(JSON.stringify(viewState.session, undefined, 2));
-                        }
-                    }}
-                >
-                    Show session
-                </button>
-            </div>
-            <textarea value={stateSnapshot} readOnly rows={20} cols={80} />
-            <h3>React to the view</h3>
-            <p>
-                Using <code>onChange</code> in <code>createViewState</code>, you can observe what is
-                happening in the view and react to it. The changes in the state of the view are emitted as{' '}
-                <a href="http://jsonpatch.com/" target="_blank" rel="noreferrer">
-                    JSON patches
-                </a>
-                . The patches for the component on this page are shown below.
-            </p>
-            <textarea value="" readOnly rows={5} cols={80} wrap="off" />
         </>
     );
 }
