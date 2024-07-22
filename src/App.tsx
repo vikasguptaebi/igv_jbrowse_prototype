@@ -31,7 +31,7 @@ function App() {
 
     return (
         <>
-            <h1>JBrowse2 React Genome Search</h1>
+            <h1>JBrowse2 & IGV Genome Search</h1>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div style={{ width: '48%' }}>
                     <JBrowseView setViewState={setViewState} />
