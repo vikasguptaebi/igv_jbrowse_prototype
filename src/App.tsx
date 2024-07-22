@@ -43,8 +43,7 @@ function App() {
             <h3>Control the view</h3>
             <div>
                 <p>
-                    This is an example of controlling the view from other elements on the page. Selecting a
-                    gene from the dropdown will navigate the view to the location of that gene.
+                    Select a gene from the dropdown to navigate the view to the location of that gene.
                 </p>
                 <GeneSelector
                     indexData={indexData}
