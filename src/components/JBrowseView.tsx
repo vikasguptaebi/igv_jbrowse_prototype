@@ -32,7 +32,7 @@ const JBrowseView: React.FC<JBrowseViewProps> = ({ setViewState }) => {
                 setLocalViewState(state);
 
                 const assemblyManager = state.assemblyManager;
-                const assemblyInstance = assemblyManager.get(assembly.name);
+                    const assemblyInstance = assemblyManager.get(assembly.name);
 
                 if (assemblyInstance) {
                     await assemblyInstance.load();
